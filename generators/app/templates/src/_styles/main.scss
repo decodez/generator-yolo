@@ -1,0 +1,15 @@
+@import "../_modules/atoms/header/header";
+
+
+body {
+  background-color: turquoise;
+  object-fit: cover;
+  color: white;
+  transform: rotate("300deg");
+  min-width: 100vw;
+  cursor: pointer;
+  h1 {
+    font-size: 5em;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+}

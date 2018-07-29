@@ -1,0 +1,9 @@
+{
+  "generator-node": {
+    "promptValues": {
+      "authorName": "Akhil Prasenan",
+      "authorEmail": "akhil_prasenan@outlook.com",
+      "authorUrl": "www.decodez.net"
+    }
+  }
+}
