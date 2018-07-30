@@ -5,6 +5,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
   entry: "./src/_scripts/index.js",
+  mode: "development",
   output: {
     filename: 'assets/scripts/main.js',
     path: path.resolve(__dirname, 'dist'),
@@ -45,7 +46,10 @@ module.exports = {
   ],
   devServer: {
     contentBase: path.resolve(__dirname, 'dist'),
-    compress: true,
+    watchContentBase: true,
+    publicPath: '/',
+    hot: false,
+    inline: true,
     port: 3000
   }
 };

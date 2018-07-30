@@ -1,5 +1,6 @@
 extends _layouts/base
 
+include ./_modules/button/button
 
 
 block config 
@@ -7,5 +8,7 @@ block config
 
 
 block content
-  h1 Hello World
-  img(src="/assets/images/test.jpg")
+  .yolo-info
+    h1 Welcome to Yolo Project
+    img.logo(src="/assets/images/logo.png")
+    +button({"text":"Learn More"})

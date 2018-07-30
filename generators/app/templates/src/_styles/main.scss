@@ -1,15 +1,33 @@
-@import "../_modules/atoms/header/header";
+
+
+@import "./_fonts";
+
 
 
 body {
-  background-color: turquoise;
+  font-family: 'Roboto', Arial, Helvetica, sans-serif;
+  background-color: white;
   object-fit: cover;
-  color: white;
+  color: #222;
   transform: rotate("300deg");
   min-width: 100vw;
   cursor: pointer;
-  h1 {
-    font-size: 5em;
-    font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.yolo-info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  min-height: 100vh;
+  .logo {
+    width: 100px;
+    height: auto;
+    margin: 0 auto;
   }
 }
+
+
+@import "../_modules/button/button";

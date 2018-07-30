@@ -1,0 +1,7 @@
+mixin button(spec)
+  - spec = spec || {}
+  - spec.__class = spec.__class || ''
+  - spec.link  = spec.link || '#'
+
+  a.button(href=spec.link class=spec.__class)&attributes(attributes)
+    p=spec.text
