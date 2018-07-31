@@ -1,4 +1,5 @@
 const path = require('path');
+const webpack = require('webpack');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
@@ -42,7 +43,12 @@ module.exports = {
     new CopyWebpackPlugin([
       {from:'src/_images',to:'assets/images'},
       {from:'src/_fonts',to:'assets/fonts'}
-    ])
+    ]),
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      jQuery: 'jquery',
+      'window.jQuery': 'jquery'
+    })
   ],
   devServer: {
     contentBase: path.resolve(__dirname, 'dist'),
