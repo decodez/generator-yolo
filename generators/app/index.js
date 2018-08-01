@@ -59,5 +59,8 @@ module.exports = class extends Generator {
       )} for you!`
     );
     this.npmInstall();
+    this.log(
+      `All done, You can run ${chalk.yellow('"npm run dev"')} to start the dev server.`
+    );
   }
 };

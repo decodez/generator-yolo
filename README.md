@@ -55,18 +55,26 @@ Once everything is installed, you will see a project structure like below:
 |   |       ├── button.js
 |   |       └── button.scss
 |   ├── _styles               # Global styles, mixins, variables, etc
-            _fonts.scss       # Custom fonts
+        ├── _fonts.scss       # Custom fonts
 |   |   └── main.scss         # Main stylesheet (import everything to this file)
 |   ├── _scripts              # Global scripts, base classes, etc
-|   |   └── main.js           # Main bootstrap file
-|   ├── fonts                 # Fonts (Example, will not be generated)
+|   |   └── index.js          # Main bootstrap file
+|   ├── _fonts                # Fonts (Example, will not be generated)
 |   ├── index.jade            # Homepage template
 |   ├── favicon.ico
 |   └── robots.txt
-├── gulpfile.js               # Gulp task configuration
+├── webpack.config.js         # Webpack Config
+├── postcss.config.js         # Postcss config
 └── package.json              # Dependencies and site/folder configuration
 ```
 
+Congratulations! You should now have successfully created a YOLO project and are ready to start building out your site/app.
+
+
+Now you can run the following tasks:
+
+- `npm run dev` for previewing your site/app on a development server.
+- `npm run build` for generating a production version of your site/app.
 
 
 ## Sub-Generators

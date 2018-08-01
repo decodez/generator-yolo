@@ -3,6 +3,9 @@ const webpack = require('webpack');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const multiJsonLoader = require('multi-json-loader');
+const siteData = multiJsonLoader.loadFiles('./src/_data');
+
 
 module.exports = {
   entry: "./src/_scripts/index.js",
@@ -27,7 +30,7 @@ module.exports = {
       },
       {
         test: /\.pug$/,
-        use: ['html-loader?attrs=false', 'pug-html-loader']
+        use: ['html-loader?attrs=false', {loader: 'pug-html-loader',options: {data: {site: { data: siteData} }}}]
       }
     ]
   },
