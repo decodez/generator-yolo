@@ -4,32 +4,37 @@ const _ = require('lodash');
 
 module.exports = class extends Generator {
   writing() {
-    let convertedClassName = _.camelCase(this.arguments);
+    let modulePath = String(this.arguments);
+    let moduleName = String(this.arguments)
+      .split('/')
+      .slice(-1)[0];
+
+    let convertedClassName = _.camelCase(moduleName);
     convertedClassName = _.upperFirst(convertedClassName);
 
     if (this.options.atomic) {
       this.fs.copyTpl(
         this.templatePath('module.pug'),
         this.destinationPath(
-          `src/_modules/${this.options.atomic}s/${this.arguments}/${this.arguments}.pug`
+          `src/_modules/${this.options.atomic}s/${modulePath}/${moduleName}.pug`
         ),
         {
-          name: this.arguments
+          name: moduleName
         }
       );
       this.fs.copyTpl(
         this.templatePath('module.scss'),
         this.destinationPath(
-          `src/_modules/${this.options.atomic}s/${this.arguments}/${this.arguments}.scss`
+          `src/_modules/${this.options.atomic}s/${modulePath}/${moduleName}.scss`
         ),
         {
-          name: this.arguments
+          name: moduleName
         }
       );
       this.fs.copyTpl(
         this.templatePath('module.js'),
         this.destinationPath(
-          `src/_modules/${this.options.atomic}s/${this.arguments}/${this.arguments}.js`
+          `src/_modules/${this.options.atomic}s/${modulePath}/${moduleName}.js`
         ),
         {
           name: convertedClassName
@@ -38,21 +43,21 @@ module.exports = class extends Generator {
     } else {
       this.fs.copyTpl(
         this.templatePath('module.pug'),
-        this.destinationPath(`src/_modules/${this.arguments}/${this.arguments}.pug`),
+        this.destinationPath(`src/_modules/${modulePath}/${moduleName}.pug`),
         {
-          name: this.arguments
+          name: moduleName
         }
       );
       this.fs.copyTpl(
         this.templatePath('module.scss'),
-        this.destinationPath(`src/_modules/${this.arguments}/${this.arguments}.scss`),
+        this.destinationPath(`src/_modules/${modulePath}/${moduleName}.scss`),
         {
-          name: this.arguments
+          name: moduleName
         }
       );
       this.fs.copyTpl(
         this.templatePath('module.js'),
-        this.destinationPath(`src/_modules/${this.arguments}/${this.arguments}.js`),
+        this.destinationPath(`src/_modules/${modulePath}/${moduleName}.js`),
         {
           name: convertedClassName
         }
