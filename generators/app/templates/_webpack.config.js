@@ -4,6 +4,8 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
+const ImageminPlugin = require('imagemin-webpack-plugin').default;
+const imageminMozjpeg = require('imagemin-mozjpeg');
 const multiJsonLoader = require('multi-json-loader');
 const siteData = multiJsonLoader.loadFiles('./src/_data');
 
@@ -48,6 +50,15 @@ module.exports = {
       {from:'src/_images',to:'assets/images'},
       {from:'src/_fonts',to:'assets/fonts'}
     ]),
+    new ImageminPlugin({ 
+      test: /\.(jpe?g|png|gif|svg)$/i,
+      plugins: [
+        imageminMozjpeg({
+          quality: 70,
+          progressive: true
+        })
+      ]
+    }),
     new webpack.ProvidePlugin({
       $: 'jquery',
       jQuery: 'jquery',
