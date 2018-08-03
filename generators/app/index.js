@@ -30,11 +30,13 @@ module.exports = class extends Generator {
   }
 
   writing() {
+    let projectName = String(this.props.name).replace(' ', '-');
+
     this.fs.copyTpl(
       this.templatePath('_package.json'),
       this.destinationPath('package.json'),
       {
-        name: this.props.name,
+        name: projectName,
         authorName: this.props.authorName
       }
     );
