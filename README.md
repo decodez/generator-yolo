@@ -46,6 +46,8 @@ Once everything is installed, you will see a project structure like below:
 
 ```
 ├── src
+|   ├── _data                  # JSON files that add data to templates
+|   ├── _fonts                 # Font files
 |   ├── _images                # Images
 |   ├── _layouts               # Layout structure for app
 |   |   └── base.jade
@@ -55,7 +57,7 @@ Once everything is installed, you will see a project structure like below:
 |   |       ├── button.js
 |   |       └── button.scss
 |   ├── _styles               # Global styles, mixins, variables, etc
-        ├── _fonts.scss       # Custom fonts
+        ├── _fonts.scss       # Custom font entries
 |   |   └── main.scss         # Main stylesheet (import everything to this file)
 |   ├── _scripts              # Global scripts, base classes, etc
 |   |   └── index.js          # Main bootstrap file
@@ -101,6 +103,14 @@ Produces:
 src/contact/index.pug
 ```
 
+***Note: This command will prompt you for confirmation overwrite webpack.config.js file. You can press 'y' and press 'enter' to confirm. This will add a new entry inside the webpack config for the webpack html plugin.
+
+This will also add an entry in the .yo-rc.json file.
+
+## If you delete a page, please also remove the entry from the webpack config file to avoid errors***
+
+
+
 ### Module
 Creates a new module.
 
@@ -116,6 +126,20 @@ Produces:
 src/_modules/header/header.pug
 src/_modules/header/header.scss
 src/_modules/header/header.js
+```
+
+Specify custom folder structure
+
+```
+$ yo yolo:module components/header
+```
+
+Produces:
+
+```
+src/_modules/components/header/header.pug
+src/_modules/components/header/header.scss
+src/_modules/components/header/header.js
 ```
 
 #### Example #2: Specifying module as atomic
@@ -136,14 +160,47 @@ src/_modules/atoms/link/link.js
 
 > NOTE: Possible `--atomic` options: atom, molecule, organism
 
+### Data Files
+
+If you want to load global data into your PUG templates, you can add JSON files in `src/_data` folder.
+
+For example, add menu.json in `src/_data` folder:
+
+```json
+{
+  "name": "Home",
+  "link": "/",
+  "category": "Page",
+  "status": "Development"
+}
+```
+
+And it will be added to the `site.data` object so it can be used like so:
+
+```PUG
+div
+  h1= site.data.menu.name
+```
+
+Which outputs to:
+
+```html
+<div>
+  <h1>Home</h1>
+</div>
+```
+
+
+## Image Minification options
+
+please visit the following link to learn more about image minification options. 
+
+[Imagemin Webpack Plugin](https://github.com/Klathmon/imagemin-webpack-plugin)
+
 
 
 
 ## Getting To Know Yeoman
-
- * Yeoman has a heart of gold.
- * Yeoman is a person with feelings and opinions, but is very easy to work with.
- * Yeoman can be too opinionated at times but is easily convinced not to be.
  * Feel free to [learn more about Yeoman](http://yeoman.io/).
 
 ## License
