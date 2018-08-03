@@ -48,6 +48,10 @@ module.exports = class extends Generator {
       this.templatePath('_webpack.config.js'),
       this.destinationPath('webpack.config.js')
     );
+    this.fs.copyTpl(
+      this.templatePath('_.editorconfig'),
+      this.destinationPath('.editorconfig')
+    );
     this.fs.copyTpl(this.templatePath('_README.md'), this.destinationPath('README.md'), {
       name: this.props.name
     });
