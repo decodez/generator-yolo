@@ -1,8 +1,8 @@
 {
   "name": "generator-yolo",
-  "version": "0.0.0",
-  "description": "Awesome static site generator",
-  "homepage": "",
+  "version": "0.1.0",
+  "description": "Awesome static site generator based on Webpack!",
+  "homepage": "https://github.com/decodez/generator-yolo/tree/master",
   "author": {
     "name": "Akhil Prasenan",
     "email": "akhil_prasenan@outlook.com",
@@ -13,8 +13,16 @@
   ],
   "main": "generators/index.js",
   "keywords": [
-    "",
-    "yeoman-generator"
+    "yeoman-generator",
+    "yolo",
+    "frontend",
+    "html5",
+    "pug",
+    "static site",
+    "static",
+    "sass",
+    "browsersync",
+    "webpack"
   ],
   "devDependencies": {
     "eslint": "^4.19.1",
