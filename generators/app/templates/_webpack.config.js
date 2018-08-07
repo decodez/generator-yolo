@@ -20,6 +20,7 @@ module.exports = {
   },
   module: {
     rules: [
+      <%if (jsPreprocessor !== 'none') { %>
       {
         test: /\.js$/,
         exclude: /node_modules/,
@@ -27,6 +28,8 @@ module.exports = {
           loader: "babel-loader"
         }
       },
+      <% } %>
+      
       {
         test: /\.s?css/,
         use:  [  'style-loader', MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader', 'sass-loader']

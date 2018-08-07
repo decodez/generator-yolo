@@ -20,18 +20,28 @@ module.exports = class extends Generator {
         name: 'authorName',
         message: 'Enter author name',
         default: this.appname // Default to current folder name
+      },
+      {
+        type: 'list',
+        name: 'jsPreprocessor',
+        message: `What ${chalk.blue('JavaScript preprocessor')}would you like to use?`,
+        choices: ['none', 'ES6(using babel)'],
+        default: 'ES6(using babel)' // Default to current folder name
       }
     ];
 
     return this.prompt(prompts).then(props => {
       // To access props later use this.props.someAnswer;
       this.props = props;
+      console.log(this.props);
     });
   }
 
   writing() {
     let projectName = String(this.props.name).replace(' ', '-');
-
+    this.config.set('project', projectName);
+    this.config.set('author', this.props.authorName);
+    this.config.set('jsPreprocessor', this.props.jsPreprocessor);
     this.fs.copyTpl(
       this.templatePath('_package.json'),
       this.destinationPath('package.json'),
@@ -46,7 +56,10 @@ module.exports = class extends Generator {
     );
     this.fs.copyTpl(
       this.templatePath('_webpack.config.js'),
-      this.destinationPath('webpack.config.js')
+      this.destinationPath('webpack.config.js'),
+      {
+        jsPreprocessor: this.props.jsPreprocessor
+      }
     );
     this.fs.copyTpl(
       this.templatePath('_.editorconfig'),
@@ -56,7 +69,8 @@ module.exports = class extends Generator {
       name: this.props.name
     });
     this.fs.copyTpl(this.templatePath('src'), this.destinationPath('src'), {
-      name: this.props.name
+      name: this.props.name,
+      jsPreprocessor: this.props.jsPreprocessor
     });
   }
 
