@@ -18,6 +18,18 @@ const assetPath = PACKAGE.assetPath;
 
 const siteData = multiJsonLoader.loadFiles('./src/_data');
 
+let runMod = "development";
+
+
+if (process.argv.indexOf('--dev') === -1) {
+  console.log('Running production build......');
+  runMod = 'production'
+} else {
+  console.log('Running development build......');
+  runMod = 'development'
+}
+
+
 function loadJsonFiles(startPath, parentObj) {
   var files=fs.readdirSync(startPath);
 
@@ -52,6 +64,7 @@ function findFilesInDir(startPath,filter){
       else if ((filename.indexOf(filter)>=0) && (filename.indexOf('_modules') === -1) && (filename.indexOf('_layouts') === -1)) {
           //console.log('-- found: ',filename);
         var actualFilename = filename.replace('src/','');
+        actualFilename = actualFilename.replace('src\\/', '');
         results.push(actualFilename);
       }
   }
