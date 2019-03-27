@@ -64,7 +64,7 @@ function findFilesInDir(startPath,filter){
       else if ((filename.indexOf(filter)>=0) && (filename.indexOf('_modules') === -1) && (filename.indexOf('_layouts') === -1)) {
           //console.log('-- found: ',filename);
         var actualFilename = filename.replace('src/','');
-        actualFilename = actualFilename.replace('src\\/', '');
+        actualFilename = actualFilename.replace(/src\\/g, '');
         results.push(actualFilename);
       }
   }
