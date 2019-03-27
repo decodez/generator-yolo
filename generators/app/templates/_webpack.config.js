@@ -10,14 +10,28 @@ const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 const ImageminPlugin = require('imagemin-webpack-plugin').default;
 const imageminMozjpeg = require('imagemin-mozjpeg');
 const multiJsonLoader = require('multi-json-loader');
-const siteData = multiJsonLoader.loadFiles('./src/_data');
 const smp = new SpeedMeasurePlugin();
 const happyThreadPool = HappyPack.ThreadPool({ size: 4 });
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const PACKAGE = require('./package.json');
 const assetPath = PACKAGE.assetPath;
 
+const siteData = multiJsonLoader.loadFiles('./src/_data');
 
+function loadJsonFiles(startPath, parentObj) {
+  var files=fs.readdirSync(startPath);
+
+  for(var i=0;i<files.length;i++){
+    var filename=path.join(startPath,files[i]);
+    var stat = fs.lstatSync(filename);
+    if (stat.isDirectory()){
+      parentObj[`${files[i]}`] = multiJsonLoader.loadFiles(filename);
+      loadJsonFiles(filename, parentObj[`${files[i]}`]);
+    }
+  } 
+}
+
+loadJsonFiles('./src/_data', siteData);
 
 function findFilesInDir(startPath,filter){
 
@@ -78,7 +92,7 @@ function generateModRules(envMode) {
     {
       test: /\.(sa|sc|c)ss$/,
       use: [
-        'style-loader',
+        MiniCssExtractPlugin.loader,
         'css-loader',
         'postcss-loader',
         'fast-sass-loader',
@@ -162,10 +176,6 @@ function generatePlugins (envMode) {
           progressive: true
         })
       ]
-    }),
-
-    new MiniCssExtractPlugin({
-      filename: 'assets/styles/main.css'
     })
   ]
 
@@ -210,6 +220,10 @@ module.exports = smp.wrap({
       'window.jQuery': 'jquery',
       $j: 'jquery'
     }),
+
+    new MiniCssExtractPlugin({
+      filename: `${assetPath}/styles/main.css`
+    })
   ].concat(htmlPlugins, buildPlugins),
   devServer: {
     contentBase: path.resolve(__dirname, 'dist'),
