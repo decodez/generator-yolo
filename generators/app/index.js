@@ -72,6 +72,7 @@ module.exports = class extends Generator {
     this.fs.copyTpl(this.templatePath('_.eslintrc'), this.destinationPath('.eslintrc'), {
       jsPreprocessor: this.props.jsPreprocessor
     });
+    this.fs.copyTpl(this.templatePath('_.babelrc'), this.destinationPath('.babelrc'));
     this.fs.copyTpl(this.templatePath('_README.md'), this.destinationPath('README.md'), {
       name: this.props.name
     });

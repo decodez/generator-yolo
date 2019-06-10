@@ -4,6 +4,7 @@ const webpack = require('webpack');
 const HappyPack = require('happypack');
 const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
@@ -202,9 +203,9 @@ function generatePlugins (envMode) {
 
 const htmlPlugins = generateHtmlPlugins('./src');
 
-const buildPlugins = generatePlugins(process.env.NODE_ENV);
+const buildPlugins = generatePlugins(runMod);
 
-const moduleRules = generateModRules(process.env.NODE_ENV);
+const moduleRules = generateModRules(runMod);
 
 
 
@@ -220,7 +221,7 @@ module.exports = smp.wrap({
     rules: moduleRules
   },
   plugins: [
-      
+    new CleanWebpackPlugin(),
     new CopyWebpackPlugin([
       {from:'src/_images',to:`${assetPath}/images`},
       {from:'src/_fonts',to:`${assetPath}/fonts`},

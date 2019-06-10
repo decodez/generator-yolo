@@ -1,8 +1,6 @@
 # generator-yolo 
-> Awesome static site generator based on Webpack!
+> Awesome static site generator using Webpack!
 
-
-> NOTE: ## currently on Development. Not ready for production use.
 
 
 ## Technologies
@@ -103,14 +101,6 @@ Produces:
 src/contact/index.pug
 ```
 
-***Note: This command will prompt you for confirmation overwrite webpack.config.js file. You can press 'y' and press 'enter' to confirm. This will add a new entry inside the webpack config for the webpack html plugin.
-
-This will also add an entry in the .yo-rc.json file.
-
-## If you delete a page, please also remove the entry from the webpack config file to avoid errors***
-
-
-
 ### Module
 Creates a new module.
 
@@ -198,14 +188,47 @@ please visit the following link to learn more about image minification options.
 [Imagemin Webpack Plugin](https://github.com/Klathmon/imagemin-webpack-plugin)
 
 
+## Migrating from Generator Yeogurt to YOLO
+If you are migrating a current yeogurt project to yolo, you need to do some changes in the files.
 
+1. In Yeogurt global json data is available via the variable ```site``` , so that you can access the date like ```site.data.somedata``` . In YOLO global data is passed to pug via HTML WEBPACK PLUGIN, and the it is accessed via ```htmlWebpackPlugin.options.data.somedata``` . For new builds the generated pug template files already containes a variable ```- site = htmlWebpackPlugin.options``` which will let you use global data as you always use it. **When migrating you need to create this variable manually using search and replace.**
+
+2. **Plugins using browserify-shim**
+   In webpack jQuery is automatically loaded with the following references, So you don't need to import jquery in to your individual modules. Also different references of jQuery is automatically handled to avoid conflicts. See the reference code below. See [Webpack Provide Plugin](https://webpack.js.org/plugins/provide-plugin/) for more details.
+
+    ```
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      jQuery: 'jquery',
+      'window.jQuery': 'jquery',
+      $j: 'jquery'
+    }),
+    ```
+    
+    What you need to do for easy import of these plugins is to register it under ```resolve.alias``` in the webpack.config.js. See below for example,
+    ```
+    resolve: {
+        modules: [
+          "node_modules"
+        ],
+        alias: {
+          niceSelect: path.resolve(__dirname, 'node_modules/jquery-nice-select/js/jquery.nice-select.js'),
+        }
+    },
+    ```
+    
+    Then you can import the module like ```import niceSelect from 'niceSelect';``` so
+
+    More information on this can be found at [resolve webpack](https://webpack.js.org/configuration/resolve/)
+
+3. One major difference between YOLO and YEOGURT is YOLO doesn't create a ```tmp``` folder when running development mode. Everything is serverd via available memmory. 
 
 ## Getting To Know Yeoman
  * Feel free to [learn more about Yeoman](http://yeoman.io/).
 
 ## License
 
-MIT © [Akhil Prasenan](www.decodez.net)
+MIT © [Akhil Prasenan](decodez.github.io)
 
 
 [npm-image]: https://badge.fury.io/js/generator-yolo.svg
