@@ -1,5 +1,5 @@
 //Normalize styles
-@import 'node_modules/normalize.css/normalize';
+@import '../../node_modules/normalize.css/normalize';
 
 
 
@@ -10,12 +10,6 @@
 
 body {
   font-family: 'Roboto', Arial, Helvetica, sans-serif;
-  background-color: white;
-  object-fit: cover;
-  color: #222;
-  transform: rotate("300deg");
-  min-width: 100vw;
-  cursor: pointer;
   margin: 0;
   padding: 0;
 }

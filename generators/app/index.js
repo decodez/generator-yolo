@@ -33,7 +33,6 @@ module.exports = class extends Generator {
     return this.prompt(prompts).then(props => {
       // To access props later use this.props.someAnswer;
       this.props = props;
-      console.log(this.props);
     });
   }
 
@@ -65,6 +64,15 @@ module.exports = class extends Generator {
       this.templatePath('_.editorconfig'),
       this.destinationPath('.editorconfig')
     );
+    this.fs.copyTpl(this.templatePath('_.gitignore'), this.destinationPath('.gitignore'));
+    this.fs.copyTpl(
+      this.templatePath('_.gitattributes'),
+      this.destinationPath('.gitattributes')
+    );
+    this.fs.copyTpl(this.templatePath('_.eslintrc'), this.destinationPath('.eslintrc'), {
+      jsPreprocessor: this.props.jsPreprocessor
+    });
+    this.fs.copyTpl(this.templatePath('_.babelrc'), this.destinationPath('.babelrc'));
     this.fs.copyTpl(this.templatePath('_README.md'), this.destinationPath('README.md'), {
       name: this.props.name
     });
