@@ -33,7 +33,6 @@
     "mini-css-extract-plugin": "^0.4.1",
     "multi-json-loader": "^0.2.1",
     "node-sass": "^4.9.3",
-    "normalize.css": "^8.0.0",
     "postcss-loader": "^2.1.6",
     "pug": "^2.0.3",
     "pug-loader": "^2.4.0",
@@ -46,7 +45,8 @@
     "webpack-dev-server": "^3.1.5"
   },
   "dependencies": {
-    "jquery": "^3.3.1"
+    "jquery": "^3.4.1",
+    "normalize.css": "^8.0.1"
   },
   "assetPath": "assets"
 }
