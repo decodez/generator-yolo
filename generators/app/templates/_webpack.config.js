@@ -41,7 +41,7 @@ function loadJsonFiles(startPath, parentObj) {
       parentObj[`${files[i]}`] = multiJsonLoader.loadFiles(filename);
       loadJsonFiles(filename, parentObj[`${files[i]}`]);
     }
-  } 
+  }
 }
 
 loadJsonFiles('./src/_data', siteData);
@@ -157,7 +157,7 @@ function generatePlugins (envMode) {
       loaders: ['pug-loader?pretty=true'],
       threadPool: happyThreadPool
     }),
-    
+
     new HappyPack({
       id: 'js',
       loaders: ['babel-loader?cacheDirectory' ],
@@ -175,14 +175,14 @@ function generatePlugins (envMode) {
         reload: true,
         injectCss: true
       },
-      
+
     )
-  ] 
+  ]
 
 
   const prodPlugins = [
-    
-    new ImageminPlugin({ 
+
+    new ImageminPlugin({
       test: /\.(jpe?g|png|gif|svg)$/i,
       plugins: [
         imageminMozjpeg({
@@ -210,7 +210,7 @@ const moduleRules = generateModRules(runMod);
 
 
 module.exports = smp.wrap({
-  entry:  path.resolve(__dirname, 'src/_scripts/main.js'),
+  entry:  path.resolve(__dirname, 'index.js'),
   mode: process.env.NODE_ENV,
   output: {
     filename: `${assetPath}/scripts/main.js`,
@@ -224,10 +224,9 @@ module.exports = smp.wrap({
     new CleanWebpackPlugin(),
     new CopyWebpackPlugin([
       {from:'src/_images',to:`${assetPath}/images`},
-      {from:'src/_fonts',to:`${assetPath}/fonts`},
-      {from:'src/_api',to:'api'}
+      {from:'**/*',ignore:['{**/\_*,**/\_*/**}','**/*.pug'],context: 'src/'}
     ]),
-   
+
     new webpack.ProvidePlugin({
       $: 'jquery',
       jQuery: 'jquery',
@@ -252,7 +251,7 @@ module.exports = smp.wrap({
       "node_modules"
     ],
     alias: {
- 
+
     }
   },
   optimization: {
