@@ -24,7 +24,7 @@ module.exports = class extends Generator {
       {
         type: 'list',
         name: 'jsPreprocessor',
-        message: `What ${chalk.blue('JavaScript preprocessor')}would you like to use?`,
+        message: `What ${chalk.blue('JavaScript preprocessor')} would you like to use?`,
         choices: ['none', 'ES6(using babel)'],
         default: 'ES6(using babel)' // Default to current folder name
       }
@@ -49,6 +49,9 @@ module.exports = class extends Generator {
         authorName: this.props.authorName
       }
     );
+    this.fs.copyTpl(this.templatePath('_index.js'), this.destinationPath('index.js'), {
+      jsPreprocessor: this.props.jsPreprocessor
+    });
     this.fs.copyTpl(
       this.templatePath('_postcss.config.js'),
       this.destinationPath('postcss.config.js')
